@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Phonebook from "./components/Phonebook";
 
-function App() {
+export default function App() {
+  const [phone, setPhone] = React.useState([]);
+
+  const addContact = () => {
+    let name = prompt("Enter name");
+    if (name === null) return;
+    let number = prompt("Enter number");
+    if (number === null) return;
+    setPhone((prevContacts) => [...prevContacts, { name, number }]);
+  };
+
+  const editContact = (index) => {
+    let name = prompt("Enter new name", phone[index].name);
+    if (name === null) return;
+    let number = prompt("Enter new number", phone[index].number);
+    if (number === null) return;
+    setPhone((prevContacts) => {
+      const updatedContacts = [...prevContacts];
+      updatedContacts[index] = { name, number };
+      return updatedContacts;
+    });
+  };
+
+  const deleteContact = (index) => {
+    setPhone((prevContacts) => prevContacts.filter((_, i) => i !== index));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <div className="main-top">
+        <h1 className="main-heading">Phone Book</h1>
+        <button onClick={addContact} className="btn">Add Contact</button>
+      </div>
+      <div className="contact-list">
+        {phone.map((contact, index) => (
+          <Phonebook
+            key={index}
+            name={contact.name}
+            number={contact.number}
+            onEdit={() => editContact(index)}
+            onDelete={() => deleteContact(index)}
+          />
+        ))}
+      </div>
+    </main>
   );
 }
-
-export default App;
