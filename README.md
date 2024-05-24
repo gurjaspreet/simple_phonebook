@@ -6,10 +6,6 @@ A simple React application to manage contacts in a phone book with add, edit, an
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Components](#components)
-- [CSS Styling](#css-styling)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 
